@@ -33,7 +33,7 @@ public class RoundDao implements IRoundDao {
 	@SuppressWarnings("unchecked")
 	public List<Round> getRoundsByCourseId(int courseId) {
 		String hql = "FROM Round as rd WHERE rd.course_id = ?";
-		List<Round> rounds = entityManager.createQuery(hql).setParameter(1, courseId)
+		List<Round> rounds = entityManager.createQuery(hql).setParameter(0, courseId)
 		              .getResultList();
 		return rounds;
 	}

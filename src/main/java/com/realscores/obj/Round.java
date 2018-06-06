@@ -26,7 +26,7 @@ public class Round implements Serializable {
 	private int round_id;
 	
 	@Column(name="course_id")
-	private int courseId;
+	private int course_id;
 	
 	@Column(name="date")
   	private Date startTime;
@@ -44,11 +44,11 @@ public class Round implements Serializable {
 	}
 	
   	public int getCourseId() {
-		return courseId;
+		return course_id;
 	}
 	
   	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+		this.course_id = courseId;
 	}
 	
   	public Date getStartTime() {

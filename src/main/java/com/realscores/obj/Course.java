@@ -54,5 +54,13 @@ public class Course implements Serializable {
 	public void setHoles(List<Hole> holes) {
 		this.holes = holes;
 	}
+	
+	public Integer getPar() {
+		if (holes == null){
+			return null;
+		} else {
+			return holes.stream().mapToInt(h -> h.getPar()).sum();
+		}
+	}
 
 }
