@@ -11,6 +11,7 @@
 .sts4-cache
 .metadata
 Servers/
+application.properties
 
 ### IntelliJ IDEA ###
 .idea
