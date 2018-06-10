@@ -1,5 +1,12 @@
 # Golf Scores App #
-## RealScores ##
-The begining of something terrible
+## FourScores ##
+The beginning of something terrible
 - - - -
-How to run (because I will forget): `mvn spring-boot:run`
+
+### How to Setup
+1. Download & Setup Maven/Java
+2. Configure application.properties
+
+### How to Run
+1. Run using run.bat or ```mvn spring-boot:run```
+2. Check that localhost:8080/courses returns a result
