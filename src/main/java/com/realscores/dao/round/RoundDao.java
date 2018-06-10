@@ -1,14 +1,18 @@
 package com.realscores.dao.round;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import com.realscores.obj.Round;
+import com.realscores.obj.RoundFilter;
 
 @Transactional
 @Repository
@@ -37,6 +41,38 @@ public class RoundDao implements IRoundDao {
 		              .getResultList();
 		return rounds;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Round> searchRounds(RoundFilter roundFilter){
+		String hql = "FROM Round as rd WHERE 1=1";
+		Map<Integer, Object> params = new HashMap<>();
+		int paramCount = 0;
+		if(roundFilter != null){
+			if(roundFilter.getCourseId() != null){
+				hql += " AND rd.course_id = ?" ;
+				params.put(paramCount, roundFilter.getCourseId());
+				paramCount++;
+			}
+			if(roundFilter.getStartDate() != null){
+				hql += " AND rd.date >= ?" ;
+				params.put(paramCount, roundFilter.getStartDate());
+				paramCount++;
+			}
+			if(roundFilter.getEndDate() != null){
+				hql += " AND rd.date <= ?" ;
+				params.put(paramCount, roundFilter.getEndDate());
+				paramCount++;
+			}
+		}
+		
+		Query query = entityManager.createQuery(hql);
+		for (int i = 0; i < paramCount; i++){
+			query.setParameter(i, params.get(i));
+		}
+		return query.getResultList();
+	}
+
 
 	@Override
 	public void addRound(Round round) {
@@ -47,7 +83,7 @@ public class RoundDao implements IRoundDao {
 	public void updateRound(Round round) {
 		Round foundRound = getRoundById(round.getRoundId());
 		foundRound.setCourseId(round.getCourseId());
-		foundRound.setStartTime(round.getStartTime());
+		foundRound.setDate(round.getDate());
 		entityManager.flush();
 	}
 

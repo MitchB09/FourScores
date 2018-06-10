@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.realscores.dao.round.IRoundDao;
 import com.realscores.obj.Round;
+import com.realscores.obj.RoundFilter;
 
 @Service
 public class RoundService implements IRoundService {
@@ -23,6 +24,11 @@ public class RoundService implements IRoundService {
 	public Round getRoundById(int roundId) {
 		return roundDao.getRoundById(roundId);
 	}
+	
+    public List<Round> searchRounds(RoundFilter roundFilter){
+    	return roundDao.searchRounds(roundFilter);
+    }
+
 
 	@Override
 	public List<Round> getRoundsByCourseId(int courseId) {

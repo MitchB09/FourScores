@@ -1,8 +1,10 @@
 package com.realscores.mvc.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.realscores.obj.Round;
+import com.realscores.obj.RoundFilter;
 import com.realscores.service.round.IRoundService;
 
 @Controller
@@ -28,7 +32,7 @@ public class RoundController {
 	IRoundService roundService;
 	
 	@GetMapping("/rounds")
-	public ResponseEntity<List<Round>> getRounds(){		
+	public ResponseEntity<List<Round>> getRounds(){	
 		List<Round> rounds = roundService.getAllRounds();
 		return new ResponseEntity<List<Round>>(rounds, HttpStatus.OK);
 	}
@@ -38,6 +42,15 @@ public class RoundController {
 			@PathVariable("id") int roundId){		
 		Round round = roundService.getRoundById(roundId);
 		return new ResponseEntity<Round>(round, HttpStatus.OK);
+	}
+	
+	@GetMapping("/rounds/search")
+	public ResponseEntity<List<Round>> searchRounds(
+			@RequestParam(required=false) Integer courseId,
+			@RequestParam(required=false) @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+			@RequestParam(required=false) @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate){
+		List<Round> rounds = roundService.searchRounds(new RoundFilter(courseId, startDate, endDate));
+		return new ResponseEntity<List<Round>>(rounds, HttpStatus.OK);
 	}
 	
 	@PostMapping(name="/rounds", consumes = MediaType.APPLICATION_JSON_VALUE)

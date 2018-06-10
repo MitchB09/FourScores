@@ -29,7 +29,7 @@ public class Round implements Serializable {
 	private int course_id;
 	
 	@Column(name="date")
-  	private Date startTime;
+  	private Date date;
 	
 	@OneToMany
 	@JoinColumn(name = "round_id")
@@ -51,12 +51,12 @@ public class Round implements Serializable {
 		this.course_id = courseId;
 	}
 	
-  	public Date getStartTime() {
-		return startTime;
+  	public Date getDate() {
+		return date;
 	}
 	
-  	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+  	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public List<PlayerRound> getPlayerRounds() {
