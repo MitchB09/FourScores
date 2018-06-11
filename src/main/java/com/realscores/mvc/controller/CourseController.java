@@ -57,11 +57,11 @@ public class CourseController {
 	public ResponseEntity<Void> createCourse(@RequestBody Course course, UriComponentsBuilder builder){		
 		boolean flag = courseService.addCourse(course);
 		if (flag == false) {
-	      return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+	      return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/courses/{id}").buildAndExpand(course.getCourseId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(value = "/{courseId}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -70,16 +70,16 @@ public class CourseController {
 			@RequestBody Course course) {
 		
 		if (course.getCourseId() != courseId){
-			return new ResponseEntity<Object>("Cannot update course id", HttpStatus.UNPROCESSABLE_ENTITY);
+			return new ResponseEntity<>("Cannot update course id", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
 		courseService.updateCourse(course);
-		return new ResponseEntity<Object>(course, HttpStatus.OK);
+		return new ResponseEntity<>(course, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCourse(@PathVariable("id") Integer id) {
 		courseService.deleteCourse(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}	
 }

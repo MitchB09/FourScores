@@ -24,10 +24,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.realscores.mvc.controller.CourseController;
 import com.realscores.obj.Course;
 import com.realscores.service.course.ICourseService;
-import com.realscores.service.round.IRoundService;
 import com.realscores.obj.builder.CourseBuilder;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,9 +36,6 @@ public class CourseControllerTest extends BaseControllerTest
     
 	@Mock
 	ICourseService courseService;
-	
-	@Mock
-	IRoundService roundService; 
     
     private MockMvc mockMvc;
     

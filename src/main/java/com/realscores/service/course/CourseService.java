@@ -13,10 +13,10 @@ import com.realscores.obj.Course;
 public class CourseService implements ICourseService {
 
 	@Autowired 
-	ICourseDao courseDao;
+	private ICourseDao courseDao;
 	
 	@Autowired
-	IHoleDao holeDao;
+	private IHoleDao holeDao;
 	
 	@Override
 	public List<Course> getAllCourses() {
@@ -25,9 +25,7 @@ public class CourseService implements ICourseService {
 
 	@Override
 	public Course getCourseById(int courseId) {
-		Course course = courseDao.getCourseById(courseId);
-		//course.setHoles(holeDao.getHoleByCourseId(courseId));
-		return course;
+		return courseDao.getCourseById(courseId);
 	}
 
 	@Override

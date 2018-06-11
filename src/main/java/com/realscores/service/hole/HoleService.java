@@ -12,7 +12,7 @@ import com.realscores.obj.Hole;
 public class HoleService implements IHoleService {
 
 	@Autowired
-	IHoleDao holeDao;
+	private IHoleDao holeDao;
 
 	@Override
 	public List<Hole> getHolesByCourseId(int courseId) {
