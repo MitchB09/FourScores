@@ -53,7 +53,7 @@ public class RoundController {
 		return new ResponseEntity<List<Round>>(rounds, HttpStatus.OK);
 	}
 	
-	@PostMapping(name="/rounds", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(	"/rounds")
 	public ResponseEntity<Void> createRound(@RequestBody Round round, UriComponentsBuilder builder){		
 		boolean flag = roundService.addRound(round);
 		if (flag == false) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,14 +25,14 @@ public class Round implements Serializable {
 	@Column(name="round_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int round_id;
-	
-	@Column(name="course_id")
+
+	@JoinColumn(name="course_id")
 	private int course_id;
 	
 	@Column(name="date")
   	private Date date;
-	
-	@OneToMany
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "round_id")
 	private List<PlayerRound> playerRounds = new ArrayList<PlayerRound>();
   	

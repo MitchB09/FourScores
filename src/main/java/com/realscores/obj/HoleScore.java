@@ -18,7 +18,8 @@ public class HoleScore implements Serializable{
 	private static final long serialVersionUID = -6778088324391438214L;
 
 	@Id
-	@Column(name="player_round_id")
+	@ManyToOne(targetEntity = PlayerRound.class)
+	@JoinColumn(name = "player_round_id")
 	private int player_round_id;
 	
 	@Id

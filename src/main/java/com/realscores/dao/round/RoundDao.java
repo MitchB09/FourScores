@@ -95,7 +95,7 @@ public class RoundDao implements IRoundDao {
 	@Override
 	public boolean roundExists(int roundId) {
 		String hql = "FROM Round as rd WHERE rd.round_id = ?";
-		int count = entityManager.createQuery(hql).setParameter(1, roundId)
+		int count = entityManager.createQuery(hql).setParameter(0, roundId)
 		              .getResultList().size();
 		return count > 0 ? true : false;
 	}
