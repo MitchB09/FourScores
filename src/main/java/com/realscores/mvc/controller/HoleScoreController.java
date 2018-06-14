@@ -41,7 +41,7 @@ public class HoleScoreController {
 	      return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/players/{id}").buildAndExpand(holeScore.getPlayerRoundId()).toUri());
+        headers.setLocation(builder.path("/players/{id}").buildAndExpand(holeScore.getPlayerRound().getPlayerRoundId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	

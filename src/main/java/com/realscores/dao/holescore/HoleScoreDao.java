@@ -26,7 +26,7 @@ public class HoleScoreDao implements IHoleScoreDao {
 	@SuppressWarnings("unchecked")
 	public List<HoleScore> getHoleScoreByPlayerRoundId(int playerRoundId) {
 		String hql = "FROM Hole_score AS hs WHERE hs.player_round_id = ?";
-		List<HoleScore> holeScores = entityManager.createQuery(hql).setParameter(1, playerRoundId)
+		List<HoleScore> holeScores = entityManager.createQuery(hql).setParameter(0, playerRoundId)
 		              .getResultList();
 		return holeScores;
 	}
@@ -35,7 +35,7 @@ public class HoleScoreDao implements IHoleScoreDao {
 	@SuppressWarnings("unchecked")
 	public List<HoleScore> getHoleScoresByRoundId(int playerRoundId) {
 		String hql = "FROM Hole_scores as hs WHERE hs.player_round_id = ?";
-		List<HoleScore> holeScores = entityManager.createQuery(hql).setParameter(1, playerRoundId)
+		List<HoleScore> holeScores = entityManager.createQuery(hql).setParameter(0, playerRoundId)
 						.getResultList();
 		return holeScores;
 	}
@@ -47,7 +47,7 @@ public class HoleScoreDao implements IHoleScoreDao {
 
 	@Override
 	public void updateHoleScore(HoleScore holeScore) {
-		HoleScore foundHoleScore = getHoleScoreById(holeScore.getPlayerRoundId());
+		HoleScore foundHoleScore = getHoleScoreById(holeScore.getPlayerRound().getPlayerRoundId());
 		foundHoleScore.setHole(holeScore.getHole());
 		foundHoleScore.setStrokes(holeScore.getStrokes());
 		foundHoleScore.setGIR(holeScore.isGIR());

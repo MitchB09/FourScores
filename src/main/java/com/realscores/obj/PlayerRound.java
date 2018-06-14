@@ -1,17 +1,12 @@
 package com.realscores.obj;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="player_round")
@@ -22,38 +17,41 @@ public class PlayerRound implements Serializable{
 	@Id
 	@Column(name="player_round_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int player_round_id;
-	
-	@Column(name="round_id")
-	private int round_id;
+	private Integer player_round_id;
+
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="round_id", insertable=false, updatable=false)
+	private Round round;
 	
 	@ManyToOne
 	@JoinColumn(name = "player_id")
 	private Player player;
 
-	@OneToMany
-	@JoinColumn(name = "player_round_id")
+	@NotNull
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@JoinColumn(name = "player_round_id", nullable = false)
 	private List<HoleScore> scores;
 
-	public int getRoundId() {
-		return round_id;
+	public Round getRound() {
+		return round;
 	}
 	
-	public int getPlayerRoundId() {
+	public Integer getPlayerRoundId() {
 		return player_round_id;
 	}
 
-	public void setPlayerRoundId(int player_round_id) {
+	public void setPlayerRoundId(Integer player_round_id) {
 		this.player_round_id = player_round_id;
 	}
 
-	public void setRoundId(int round_id) {
-		this.round_id = round_id;
+	public void setRound(Round round) {
+		this.round = round;
 	}
 
 	public Player getPlayer() {
 		return player;
-	}	
+	}
 
 	public void setPlayer(Player player) {
 		this.player = player;

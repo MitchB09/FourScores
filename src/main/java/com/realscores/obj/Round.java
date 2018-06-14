@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="round")
@@ -32,8 +33,9 @@ public class Round implements Serializable {
 	@Column(name="date")
   	private Date date;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "round_id")
+	@NotNull
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@JoinColumn(name = "round_id", nullable = false)
 	private List<PlayerRound> playerRounds = new ArrayList<PlayerRound>();
   	
 	public int getRoundId() {

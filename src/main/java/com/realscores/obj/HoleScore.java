@@ -1,15 +1,10 @@
 package com.realscores.obj;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name="Hole_score")
 @Table(name="hole_score")
@@ -18,10 +13,10 @@ public class HoleScore implements Serializable{
 	private static final long serialVersionUID = -6778088324391438214L;
 
 	@Id
-	@ManyToOne(targetEntity = PlayerRound.class)
-	@JoinColumn(name = "player_round_id")
-	private int player_round_id;
-	
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="player_round_id", insertable=false, updatable=false)
+	private PlayerRound player_round;
+
 	@Id
 	@ManyToOne(targetEntity = Hole.class)
 	@JoinColumn(name="hole_id")
@@ -40,12 +35,13 @@ public class HoleScore implements Serializable{
 	@Column(name="putts")
 	private Integer putts;
 
-	public int getPlayerRoundId() {
-		return player_round_id;
+    @JsonIgnore
+	public PlayerRound getPlayerRound() {
+		return player_round;
 	}
 
-	public void setPlayerRoundId(int player_round_id) {
-		this.player_round_id = player_round_id;
+	public void setPlayerRound(PlayerRound player_round) {
+		this.player_round = player_round;
 	}
 
 	public Hole getHole() {

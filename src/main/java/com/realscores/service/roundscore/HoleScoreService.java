@@ -31,7 +31,7 @@ public class HoleScoreService implements IHoleScoreService {
 
 	@Override
 	public boolean addHoleScore(HoleScore holeScore) {
-		if (holeScoreDao.HoleScoreExists(holeScore.getPlayerRoundId(), holeScore.getHole().getHoleId())){
+		if (holeScoreDao.HoleScoreExists(holeScore.getPlayerRound().getPlayerRoundId(), holeScore.getHole().getHoleId())){
 			return false;
 		} else {
 			holeScoreDao.addHoleScore(holeScore);
