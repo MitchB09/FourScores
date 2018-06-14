@@ -6,22 +6,25 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-@Entity(name="Hole_score")
+@Entity
 @Table(name="hole_score")
 public class HoleScore implements Serializable{
 
 	private static final long serialVersionUID = -6778088324391438214L;
 
-	@Id
-	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="player_round_id", insertable=false, updatable=false)
-	private PlayerRound player_round;
+    @Id
+    @Column(name="hole_score_id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer hole_score_id;
 
-	@Id
-	@ManyToOne(targetEntity = Hole.class)
-	@JoinColumn(name="hole_id")
-	private Hole hole;
-	
+    @ManyToOne(targetEntity = PlayerRound.class, fetch=FetchType.LAZY)
+    @JoinColumn(name="player_round_id", insertable=false, updatable=false)
+    private PlayerRound player_round;
+
+    @ManyToOne(targetEntity = Hole.class)
+    @JoinColumn(name="hole_id")
+    private Hole hole;
+
 	@Column(name="strokes")
 	private int strokes;
 		
@@ -35,22 +38,30 @@ public class HoleScore implements Serializable{
 	@Column(name="putts")
 	private Integer putts;
 
+	public Integer getHoleScoreId(){
+	    return hole_score_id;
+    }
+
+    public void setHoleScoreId(Integer hole_score_id){
+	    this.hole_score_id = hole_score_id;
+    }
+
     @JsonIgnore
-	public PlayerRound getPlayerRound() {
-		return player_round;
-	}
+    public PlayerRound getPlayerRound() {
+        return player_round;
+    }
 
-	public void setPlayerRound(PlayerRound player_round) {
-		this.player_round = player_round;
-	}
+    public void setPlayerRound(PlayerRound player_round) {
+        this.player_round = player_round;
+    }
 
-	public Hole getHole() {
-		return hole;
-	}
+    public Hole getHole() {
+        return hole;
+    }
 
-	public void setHole(Hole hole) {
-		this.hole = hole;
-	}
+    public void setHole(Hole hole) {
+        this.hole = hole;
+    }
 
 	public int getStrokes() {
 		return strokes;
@@ -61,8 +72,8 @@ public class HoleScore implements Serializable{
 	}
 	
 	public String getScore() {
-		if (this.hole != null){
-			int score = strokes - hole.getPar();
+		if (this.getHole() != null){
+			int score = strokes - this.getHole().getPar();
 			if (score > 0){
 				return "+" + String.valueOf(score);
 			}
