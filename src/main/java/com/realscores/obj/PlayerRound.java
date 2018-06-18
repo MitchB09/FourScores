@@ -65,7 +65,7 @@ public class PlayerRound implements Serializable{
 		this.scores = scores;
 	}
 	
-	public int getTotalStokes() {
+	public int getTotalStrokes() {
 		int totalStrokes = 0;
 		for (HoleScore holeScore: scores){
 			totalStrokes += holeScore.getStrokes();
