@@ -1,13 +1,10 @@
 package com.realscores.obj;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "Hole")
 @Table(name = "hole")
@@ -19,9 +16,10 @@ public class Hole implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="hole_id")
     private int hole_id;
-	
-    @Column(name="course_id")
-	private int course_id;
+
+	@ManyToOne(targetEntity = Course.class, fetch=FetchType.LAZY)
+	@JoinColumn(name="course_id", insertable=false, updatable=false)
+	private Course course;
 	
 	@Column(name="par")
 	private int par;
@@ -40,12 +38,13 @@ public class Hole implements Serializable {
 		this.hole_id = hole_id;
 	}
 
-	public int getCourseId() {
-		return course_id;
+    @JsonIgnore
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseId(int course_id) {
-		this.course_id = course_id;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public int getPar() {

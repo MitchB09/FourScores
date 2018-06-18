@@ -49,7 +49,7 @@ public class CourseDao implements ICourseDao {
 	@Override
 	public boolean CourseExists(String name) {
 		String hql = "FROM Course as crs WHERE crs.name = ?";
-		int count = entityManager.createQuery(hql).setParameter(1, name)
+		int count = entityManager.createQuery(hql).setParameter(0, name)
 		              .getResultList().size();
 		return count > 0 ? true : false;
 	}
