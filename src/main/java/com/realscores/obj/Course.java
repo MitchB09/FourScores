@@ -58,4 +58,12 @@ public class Course implements Serializable {
 		}
 	}
 
+	public Integer getTotalYards() {
+		if (holes == null){
+			return null;
+		} else {
+			return holes.stream().mapToInt(h -> h.getYards()).sum();
+		}
+	}
+
 }
